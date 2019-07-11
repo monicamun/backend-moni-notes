@@ -8,11 +8,11 @@ exports.readNotes = async (req, res, next) => {
 };
 
 exports.readNote = async (req, res, next) => {
-  var notes = await Note.find({
+  var note = await Note.find({
     userId: req.UserData.userId,
     _id: req.params.id
   });
-  res.json(notes);
+  res.json(note);
 };
 
 exports.createNote = async (req, res) => {
@@ -35,6 +35,15 @@ exports.createNote = async (req, res) => {
 };
 
 exports.updateNote = async (req, res) => {
+  var note = await Note.find({
+    userId: req.UserData.userId,
+    _id: req.params.id
+  });
+
+  if (!note) {
+    throw "Note wasn't found for current user.";
+  }
+
   await Note.findByIdAndUpdate(req.params.id, req.body);
   res.json({
     status: "Note is update"
@@ -42,6 +51,15 @@ exports.updateNote = async (req, res) => {
 };
 
 exports.deleteNote = async (req, res) => {
+  var note = await Note.find({
+    userId: req.UserData.userId,
+    _id: req.params.id
+  });
+
+  if (!note) {
+    throw "Note wasn't found for current user.";
+  }
+  
   await Note.findByIdAndRemove(req.params.id);
   res.json({
     status: "Note deleted"
