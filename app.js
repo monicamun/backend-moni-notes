@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require('cors')
 const BodyParser = require("body-parser");
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -16,6 +17,18 @@ const notesRouter = require("./routes/notes");
 var app = express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
+
+var whitelist = ['http://localhost:8080', 'https://monicamun.github.io', ]
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions));
 
 mongoose
   .connect(
