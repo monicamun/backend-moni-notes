@@ -18,7 +18,7 @@ var app = express();
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
-var whitelist = ['http://localhost:8080', 'https://monicamun.github.io', ]
+var whitelist = ['http://localhost:8080', 'https://monicamun.github.io', "https://moni-notes.herokuapp.com/" ]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
