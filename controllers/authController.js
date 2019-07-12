@@ -2,7 +2,7 @@ const admin = require("firebase-admin");
 const app = admin.initializeApp();
 
 exports.validateIdToken = async (req, res, next) => {
-  console.log(req.headers);
+  console.log("validate id token")
   if (
     typeof req.headers["auth-token"] === "undefined" ||
     !req.headers["auth-token"]

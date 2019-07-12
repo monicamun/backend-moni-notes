@@ -15,7 +15,8 @@ exports.readNote = async (req, res, next) => {
   res.json(note);
 };
 
-exports.createNote = async (req, res) => {
+exports.createNote = async (req, res, next) => {
+  console.log("create note")
   let noteFromBody = Object.assign({}, req.body);
   if (typeof noteFromBody.text !== "undefined" && noteFromBody.text) {
     // notes with urls are saved as links, 0 is text, 1 is link
@@ -34,7 +35,7 @@ exports.createNote = async (req, res) => {
   });
 };
 
-exports.updateNote = async (req, res) => {
+exports.updateNote = async (req, res, next) => {
   var note = await Note.find({
     userId: req.UserData.userId,
     _id: req.params.id
@@ -50,7 +51,7 @@ exports.updateNote = async (req, res) => {
   });
 };
 
-exports.deleteNote = async (req, res) => {
+exports.deleteNote = async (req, res, next) => {
   var note = await Note.find({
     userId: req.UserData.userId,
     _id: req.params.id
