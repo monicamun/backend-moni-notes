@@ -25,7 +25,8 @@ exports.validateIdToken = async (req, res, next) => {
     })
     .catch(function(error) {
       res.status(401);
+      console.log(error)
       res.send(`Authentication failed. \n Error:${JSON.stringify(error)}`);
-      return;
+      return next();
     });
 };
